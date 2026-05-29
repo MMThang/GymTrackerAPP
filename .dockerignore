@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.github
+.gitignore
+.prettierignore
+Dockerfile
+README.md
+npm-debug.log
+yarn-error.log
+.env.local
+.env
+.continue
+

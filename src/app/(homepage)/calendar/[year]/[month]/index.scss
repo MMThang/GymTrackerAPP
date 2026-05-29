@@ -1,0 +1,471 @@
+// Modern Calendar Page Styles
+// Matches the design theme of login/register pages
+@import "./[date]/workout-session/index.scss";
+
+// Import shared variables from auth.scss
+$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$primary-color: #667eea;
+$primary-dark: #764ba2;
+$text-primary: #2d3748;
+$text-secondary: #718096;
+$text-light: #a0aec0;
+$white: #ffffff;
+$glass-bg: rgba(255, 255, 255, 0.95);
+$glass-border: rgba(255, 255, 255, 0.18);
+
+// Calendar Page Layout
+.calendar-page {
+  min-height: calc(100vh - 73px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: #0c0c1d;
+  padding: 20px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    sans-serif;
+}
+
+// Calendar Container
+.calendar-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1100px;
+  // min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// Calendar Card
+.calendar-card {
+  background: $glass-bg;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid $glass-border;
+  border-radius: 24px;
+  padding: 32px;
+  width: 100%;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  animation: slideUp 0.6s ease-out;
+  display: flex;
+  flex-direction: column;
+  // min-height: calc(100vh - 40px);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Calendar Navigation
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(102, 126, 234, 0.1);
+    color: $primary-color;
+    text-decoration: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: $primary-color;
+      color: $white;
+      transform: scale(1.05);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    &.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+      background: rgba(160, 174, 192, 0.1);
+      color: $text-light;
+
+      &:hover {
+        background: rgba(160, 174, 192, 0.1);
+        color: $text-light;
+        transform: none;
+      }
+    }
+  }
+
+  .nav-month {
+    font-size: 14px;
+    font-weight: 600;
+    color: $primary-color;
+    padding: 6px 16px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 20px;
+  }
+}
+
+// Calendar Grid
+.calendar-grid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+// Weekdays Header
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+
+  .weekday {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 0;
+  }
+}
+
+// Date Cells
+.calendar-dates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  // flex: 1;
+
+  .date-cell {
+    aspect-ratio: 1;
+    border-radius: 12px;
+    background: rgba(102, 126, 234, 0.1);
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+    cursor: default;
+    position: relative;
+
+    &.empty {
+      background: transparent;
+      cursor: default;
+
+      &:hover {
+        transform: none;
+      }
+    }
+
+    &.today {
+      background: linear-gradient(
+        135deg,
+        rgba(102, 126, 234, 0.15) 0%,
+        rgba(118, 75, 162, 0.15) 100%
+      );
+      border: 2px solid $primary-color;
+
+      .date-number {
+        color: $primary-color;
+        font-weight: 700;
+      }
+    }
+
+    // Date link: makes the entire cell a clickable Link
+    &.date-link {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      border: 2px solid transparent;
+
+      &:hover {
+        border-color: $primary-color;
+      }
+    }
+
+    &.future-date {
+      background: rgba(160, 174, 192, 0.1);
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: 0.5;
+
+      .date-number {
+        color: $text-light;
+      }
+    }
+
+    .date-number {
+      font-size: 18px;
+      font-weight: 500;
+      color: $text-primary;
+    }
+
+    .day-indicators {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      align-items: flex-end;
+    }
+
+    .skeleton-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(
+        90deg,
+        $primary-color 25%,
+        #f1f5f9 50%,
+        #e2e8f0 75%
+      );
+      background-size: 200% 100%;
+      animation: skeleton-pulse 1.5s infinite;
+    }
+
+    @keyframes skeleton-pulse {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+  }
+}
+// Responsive Design
+
+// Tablet and below
+@media (max-width: 1024px) {
+  .calendar-dates {
+    .date-cell {
+      .day-indicators {
+        svg,
+        .skeleton-icon {
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
+  }
+}
+
+// Medium screens
+@media (max-width: 768px) {
+  .calendar-card {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .calendar-dates {
+    gap: 6px;
+
+    .date-cell {
+      padding: 6px;
+
+      .date-number {
+        font-size: 14px;
+      }
+
+      .day-indicators {
+        position: static;
+        flex-direction: row;
+        gap: 1px;
+        margin-top: 2px;
+
+        svg,
+        .skeleton-icon {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+
+  .calendar-nav {
+    .nav-btn {
+      width: 36px;
+      height: 36px;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    .nav-month {
+      font-size: 12px;
+      padding: 4px 12px;
+    }
+  }
+
+  .calendar-weekdays {
+    gap: 4px;
+
+    .weekday {
+      font-size: 11px;
+      padding: 6px 0;
+    }
+  }
+
+  .calendar-dates {
+    gap: 3px;
+
+    .date-cell {
+      aspect-ratio: unset;
+      min-height: 56px;
+      padding: 4px;
+      border-radius: 8px;
+      justify-content: flex-start;
+
+      .date-number {
+        font-size: 11px;
+        line-height: 1;
+      }
+
+      .day-indicators {
+        margin-top: 1px;
+        gap: 1px;
+
+        svg,
+        .skeleton-icon {
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+  }
+}
+
+// Small screens (phones)
+@media (max-width: 480px) {
+  .calendar-page {
+    padding: 10px;
+  }
+
+  .calendar-container {
+    min-height: 100vh;
+  }
+
+  .calendar-card {
+    padding: 12px;
+    min-height: calc(100vh - 20px);
+    border-radius: 16px;
+  }
+
+  .calendar-nav {
+    gap: 14px;
+    margin-bottom: 16px;
+
+    .nav-btn {
+      width: 32px;
+      height: 32px;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .nav-month {
+      font-size: 11px;
+      padding: 3px 10px;
+    }
+  }
+
+  .calendar-weekdays {
+    gap: 2px;
+    margin-bottom: 8px;
+
+    .weekday {
+      font-size: 10px;
+      padding: 4px 0;
+      letter-spacing: 0;
+    }
+  }
+
+  .calendar-dates {
+    gap: 3px;
+
+    .date-cell {
+      aspect-ratio: unset;
+      min-height: 56px;
+      padding: 4px;
+      border-radius: 8px;
+      justify-content: flex-start;
+
+      .date-number {
+        font-size: 11px;
+        line-height: 1;
+      }
+
+      .day-indicators {
+        margin-top: 1px;
+        gap: 1px;
+
+        svg,
+        .skeleton-icon {
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+  }
+}
+
+// Very small screens
+@media (max-width: 360px) {
+  .calendar-card {
+    padding: 8px;
+  }
+
+  .calendar-dates {
+    gap: 2px;
+
+    .date-cell {
+      min-height: 48px;
+      padding: 3px;
+      border-radius: 6px;
+
+      .date-number {
+        font-size: 10px;
+      }
+
+      .day-indicators {
+        svg,
+        .skeleton-icon {
+          width: 12px;
+          height: 12px;
+        }
+      }
+    }
+  }
+
+  .calendar-weekdays {
+    .weekday {
+      font-size: 9px;
+      padding: 3px 0;
+    }
+  }
+}

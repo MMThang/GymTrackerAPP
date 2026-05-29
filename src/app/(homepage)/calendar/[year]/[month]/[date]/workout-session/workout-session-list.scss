@@ -1,0 +1,189 @@
+// Workout Session List Styles
+.workout-session-list {
+  position: fixed;
+  top: 92px;
+  right: 80px;
+  height: 100%;
+  width: 50%;
+  max-width: 800px;
+  margin: 0 auto;
+  z-index: 20;
+
+  .workout-session-list-header {
+    margin-bottom: 16px;
+    width: 100%;
+    background: $glass-bg;
+    border-radius: 16px;
+    padding: 20px;
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+
+      h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: $text-primary;
+        margin: 0;
+      }
+
+      .session-count {
+        font-size: 14px;
+        color: $primary-color;
+        background: rgba(102, 126, 234, 0.1);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+    }
+
+    .header-subtitle {
+      font-size: 14px;
+      color: $text-secondary;
+      margin: 0;
+    }
+  }
+
+  .loading-message {
+    margin-top: 8px;
+    color: $text-secondary;
+    font-size: 14px;
+  }
+
+  .error-message {
+    margin-top: 8px;
+    color: #ef4444;
+    font-size: 14px;
+  }
+
+  .empty-message {
+    text-align: center;
+    padding: 32px 0;
+    color: $text-secondary;
+    font-size: 14px;
+  }
+
+  .sessions-container {
+    width: 100%;
+    height: calc(100% - 92px - 100px - 40px); // - top - header - paddingY
+    max-height: 960px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow: auto;
+    border-radius: 16px;
+  }
+}
+
+.workout-session-card {
+  background: $glass-bg;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid $glass-border;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .workout-session-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: $text-primary;
+  }
+
+  .workout-session-date {
+    font-size: 16px;
+    color: $glass-bg;
+    background: $primary-color;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  .card-stats {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .view-details-btn {
+      display: block;
+      padding: 10px 16px;
+      background: $primary-color;
+      color: $glass-bg;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.3px;
+
+      &:hover {
+        background: darken($primary-color, 8%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+    }
+    .stat-items {
+      display: flex;
+      gap: 24px;
+      .stat-item {
+        display: flex;
+        align-items: end;
+        gap: 4px;
+
+        .stat-value {
+          font-size: 22px;
+          font-weight: 700;
+          color: $primary-color;
+          line-height: 1;
+        }
+
+        .stat-label {
+          font-size: 12px;
+          color: $text-light;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+  }
+
+  .card-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+
+    .note-icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      color: $primary-color;
+      margin-top: 2px;
+    }
+
+    span {
+      font-size: 13px;
+      color: $text-secondary;
+      line-height: 1.5;
+      font-style: italic;
+    }
+  }
+}

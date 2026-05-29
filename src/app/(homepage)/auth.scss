@@ -1,0 +1,425 @@
+// Modern Auth Pages Theme - GymTracker
+// Color Palette: Deep Blue/Purple gradient with vibrant accents
+
+$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$primary-color: #667eea;
+$primary-dark: #764ba2;
+$accent-color: #f093fb;
+$text-primary: #2d3748;
+$text-secondary: #718096;
+$text-light: #a0aec0;
+$white: #ffffff;
+$error-color: #e53e3e;
+$success-color: #38a169;
+$glass-bg: rgba(255, 255, 255, 0.95);
+$glass-border: rgba(255, 255, 255, 0.18);
+
+// Auth Page Base Styles
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: #0c0c1d;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    sans-serif;
+}
+
+// Animated Background
+.auth-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  animation: float 20s infinite ease-in-out;
+}
+
+.shape-1 {
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  top: -100px;
+  right: -100px;
+  animation-delay: 0s;
+}
+
+.shape-2 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  bottom: -50px;
+  left: -100px;
+  animation-delay: -5s;
+}
+
+.shape-3 {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -10s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  50% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  75% {
+    transform: translate(50px, 30px) scale(1.05);
+  }
+}
+
+// Auth Container
+.auth-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  min-height: 100vh;
+}
+
+// Auth Card - Glassmorphism Effect
+.auth-card {
+  background: $glass-bg;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid $glass-border;
+  border-radius: 24px;
+  padding: 48px 40px;
+  width: 100%;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Auth Header
+.auth-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.logo-icon {
+  width: 64px;
+  height: 64px;
+  background: $primary-gradient;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+
+  svg {
+    width: 36px;
+    height: 36px;
+    color: $white;
+  }
+}
+
+.auth-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: $text-primary;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.auth-subtitle {
+  font-size: 15px;
+  color: $text-secondary;
+  margin: 0;
+  line-height: 1.5;
+}
+
+// Form Body
+.form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+// Input Wrapper with Icon
+.input-wrapper {
+  position: relative;
+
+  .input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(25%);
+    width: 20px;
+    height: 20px;
+    color: $text-light;
+    pointer-events: none;
+    z-index: 2;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // Adjust input padding when icon is present
+  .input-box {
+    margin-left: 0;
+
+    .input {
+      padding-left: 48px !important;
+      width: 100%;
+    }
+  }
+}
+
+// Form Footer
+.form-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+// Primary Button
+.primary-btn {
+  width: 100%;
+  padding: 16px !important;
+  font-size: 16px !important;
+  font-weight: 600;
+  background: $primary-gradient;
+  color: $white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Divider
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: $text-light;
+  font-size: 14px;
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  span {
+    padding: 0 16px;
+  }
+}
+
+// Additional Buttons
+.additional-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  p {
+    color: $text-secondary;
+    font-size: 14px;
+    margin: 0;
+  }
+}
+
+// Secondary Button
+.secondary-btn {
+  background: transparent !important;
+  color: $primary-color !important;
+  border: 2px solid $primary-color !important;
+  padding: 12px 32px !important;
+  font-size: 15px !important;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $primary-color !important;
+    color: $white !important;
+    transform: translateY(-2px);
+  }
+}
+
+// Auth Footer
+.auth-footer {
+  margin-top: 24px;
+  text-align: center;
+
+  p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+    margin: 0;
+  }
+}
+
+// Override existing input styles for modern look
+.auth-card {
+  .input-box {
+    .label {
+      font-size: 14px;
+      font-weight: 600;
+      color: $text-primary;
+      text-transform: none;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .input {
+      background-color: rgba(240, 240, 245, 0.8) !important;
+      backdrop-filter: none;
+      border: 2px solid transparent !important;
+      color: $text-primary !important;
+      font-size: 15px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+
+      &::placeholder {
+        color: $text-light;
+      }
+
+      &:focus {
+        background-color: $white !important;
+        border-color: $primary-color !important;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+      }
+    }
+
+    .error-msg {
+      color: $error-color;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 32px 24px;
+    border-radius: 20px;
+  }
+
+  .auth-header h1 {
+    font-size: 24px;
+  }
+
+  .logo-icon {
+    width: 56px;
+    height: 56px;
+
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  .bg-shape {
+    opacity: 0.4;
+  }
+
+  .shape-1 {
+    width: 300px;
+    height: 300px;
+  }
+
+  .shape-2 {
+    width: 250px;
+    height: 250px;
+  }
+
+  .shape-3 {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+// Animation for form elements
+.auth-card .input-box {
+  animation: fadeIn 0.4s ease-out backwards;
+
+  &:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  &:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Loading state overlay adjustments
+.form-loading-overlay {
+  border-radius: 24px;
+}

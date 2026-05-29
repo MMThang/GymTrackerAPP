@@ -1,0 +1,774 @@
+// Modern Workout Session Form Styles
+// Matches the design theme of other pages
+
+$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$primary-color: #667eea;
+$primary-dark: #764ba2;
+$text-primary: #2d3748;
+$text-secondary: #718096;
+$text-light: #a0aec0;
+$white: #ffffff;
+$glass-bg: rgba(255, 255, 255, 0.95);
+$glass-border: rgba(255, 255, 255, 0.18);
+$error-color: #e53e3e;
+$success-color: #38a169;
+
+// Workout Session Form Container
+.workout-session-form-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  z-index: 20;
+}
+
+// Form Content
+.workout-session-form {
+  width: 100%;
+  opacity: 1;
+  // overflow: hidden;
+}
+
+// Form Card
+.workout-session-form-card {
+  height: fit-content;
+  background: $glass-bg;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid $glass-border;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Form Header
+.form-header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+  .form-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+
+    svg {
+      width: 48px;
+      height: 48px;
+      color: $primary-color;
+    }
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: $text-primary;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.5px;
+  }
+
+  .form-date-badge {
+    display: inline-block;
+    background: $primary-gradient;
+    color: $white;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.45);
+  }
+
+  p {
+    font-size: 14px;
+    color: $text-secondary;
+    margin: 0;
+  }
+}
+
+// Input Group
+.input-group {
+  margin-bottom: 24px;
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 8px;
+  }
+
+  .input-wrapper {
+    position: relative;
+
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      color: $text-light;
+      pointer-events: none;
+      z-index: 2;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px 14px 48px;
+      font-size: 15px;
+      color: $text-primary;
+      background: rgba(240, 240, 245, 0.8);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+
+      &::placeholder {
+        color: $text-light;
+      }
+
+      &:focus {
+        background: $white;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        outline: none;
+      }
+    }
+  }
+}
+
+// Exercises Section
+.exercises-section {
+  margin-bottom: 32px;
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: $text-primary;
+      margin: 0;
+    }
+
+    .exercise-count {
+      font-size: 14px;
+      color: $text-secondary;
+      background: rgba(102, 126, 234, 0.1);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+  }
+}
+
+// Exercise Card
+.exercises-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.exercise-card {
+  background: rgba(240, 240, 245, 0.5);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(240, 240, 245, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .exercise-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+
+    .exercise-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: $primary-gradient;
+      color: $white;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .exercise-name-wrapper {
+      flex: 1;
+    }
+
+    .exercise-name-input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 15px;
+      color: $text-primary;
+      background: $white;
+      border: 2px solid transparent;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+
+      &::placeholder {
+        color: $text-light;
+      }
+
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        outline: none;
+      }
+    }
+
+    .remove-exercise-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: $text-light;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba(229, 62, 62, 0.1);
+        color: $error-color;
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+// Add Exercise Button
+.add-exercise-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  background: rgba(102, 126, 234, 0.1);
+  border: 2px dashed rgba(102, 126, 234, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: $primary-color;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(102, 126, 234, 0.15);
+    border-color: $primary-color;
+    transform: translateY(-1px);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// Submit Button
+.submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px;
+  background: $primary-gradient;
+  color: $white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .workout-session-form-card {
+    padding: 24px 20px;
+  }
+
+  .form-header {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+
+    .form-icon svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+  }
+
+  .exercise-card {
+    padding: 16px;
+
+    .exercise-header {
+      flex-wrap: wrap;
+
+      .exercise-name-wrapper {
+        order: 3;
+        width: 100%;
+        margin-top: 8px;
+      }
+
+      .remove-exercise-btn {
+        order: 2;
+      }
+    }
+  }
+}
+
+// Sets Component Styles
+.sets-container {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(240, 240, 245, 0.3);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.sets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-secondary;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .set-count {
+    font-size: 12px;
+    color: $text-light;
+    background: rgba(102, 126, 234, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
+}
+
+.sets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.set-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px;
+  background: $white;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: rgba(102, 126, 234, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .set-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: rgba(102, 126, 234, 0.1);
+    color: $primary-color;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+
+    span {
+      line-height: 1;
+    }
+  }
+
+  .set-inputs {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .upper-row {
+    display: flex;
+    gap: 12px;
+    .input-group {
+      flex: 1;
+      margin-bottom: 0;
+
+      label {
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        color: $text-light;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .input-with-unit {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .set-input {
+          width: 100%;
+          padding: 8px 50px 8px 12px;
+          font-size: 14px;
+          color: $text-primary;
+          background: rgba(240, 240, 245, 0.8);
+          border: 1px solid transparent;
+          border-radius: 8px;
+          transition: all 0.2s ease;
+
+          &::placeholder {
+            color: $text-light;
+          }
+
+          &:focus {
+            background: $white;
+            border-color: $primary-color;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+          }
+        }
+
+        .input-unit {
+          position: absolute;
+          right: 12px;
+          font-size: 12px;
+          color: $text-light;
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  .remove-set-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: $text-light;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+
+    &:hover {
+      background: rgba(229, 62, 62, 0.1);
+      color: $error-color;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+// Add Set Button
+.sets-container .add-set-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 10px;
+  background: rgba(102, 126, 234, 0.08);
+  border: 1px dashed rgba(102, 126, 234, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: $primary-color;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(102, 126, 234, 0.12);
+    border-color: $primary-color;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// Notes Section
+.notes-section {
+  margin-bottom: 32px;
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: $text-primary;
+      margin: 0;
+    }
+
+    .notes-hint {
+      font-size: 13px;
+      color: $text-light;
+      font-style: italic;
+    }
+  }
+
+  .textarea-wrapper {
+    position: relative;
+
+    .textarea-icon {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 20px;
+      height: 20px;
+      color: $text-light;
+      pointer-events: none;
+      z-index: 2;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    textarea {
+      width: 100%;
+      padding: 14px 16px 14px 48px;
+      font-size: 15px;
+      color: $text-primary;
+      background: rgba(240, 240, 245, 0.8);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      resize: vertical;
+      min-height: 100px;
+      font-family: inherit;
+      transition: all 0.2s ease;
+
+      &::placeholder {
+        color: $text-light;
+      }
+
+      &:focus {
+        background: $white;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        outline: none;
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .set-row {
+    flex-wrap: wrap;
+
+    .set-inputs {
+      flex: 1 1 100%;
+      order: 3;
+      margin-top: 8px;
+    }
+
+    .remove-set-btn {
+      order: 2;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .workout-session-form-card {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .form-header h2 {
+    font-size: 18px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+// Checkbox Styles
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+
+  .bodyweight-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: $primary-color;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    background: $white;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: $primary-color;
+      transform: scale(1.05);
+    }
+
+    &:checked {
+      background: $primary-color;
+      border-color: $primary-color;
+    }
+  }
+
+  .checkbox-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: $text-primary;
+    letter-spacing: 0.2px;
+  }
+}
+
+// Disabled Input Styles
+.input-group.disabled {
+  .set-input {
+    background: rgba(200, 200, 200, 0.3) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    color: $text-light !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    &::placeholder {
+      color: rgba(160, 174, 192, 0.6) !important;
+    }
+
+    &:focus {
+      background: rgba(200, 200, 200, 0.3) !important;
+      border-color: rgba(0, 0, 0, 0.1) !important;
+      box-shadow: none !important;
+      cursor: not-allowed;
+    }
+  }
+
+  label {
+    color: $text-light;
+    opacity: 0.7;
+  }
+}
+
+// Responsive for Workout Session List
+@media (max-width: 768px) {
+  .workout-session-card {
+    .card-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .card-stats {
+      gap: 16px;
+    }
+
+    .stat-item .stat-value {
+      font-size: 20px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .workout-session-list .header .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .workout-session-card {
+    padding: 16px;
+
+    .workout-session-name {
+      font-size: 16px;
+    }
+
+    .card-stats {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  }
+}
