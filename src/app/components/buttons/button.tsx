@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 import { JSX } from "react";
 
 export function Button({
-  btnType = "button",
   type,
   href,
   onClick,

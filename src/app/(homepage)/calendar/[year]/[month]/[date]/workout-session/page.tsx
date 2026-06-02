@@ -27,7 +27,7 @@ export default function WorkoutSession({
   const resolvedParams = use(params);
   const loaded = useRef(false);
   const [loading, setLoading] = useState(true);
-  const workoutSessionIdRef = useRef<string>("");
+  const [workoutSessionId, setWorkoutSessionId] = useState("");
   const [showList, setShowList] = useState(false);
 
   useEffect(() => {
@@ -57,15 +57,15 @@ export default function WorkoutSession({
           return;
         }
 
-        workoutSessionIdRef.current = dayData.workoutSessionId;
+        setWorkoutSessionId(dayData.workoutSessionId);
 
         const sessionResult = await getWorkoutSessionById({
-          workoutSessionId: workoutSessionIdRef.current,
+          workoutSessionId: dayData.workoutSessionId,
         });
 
         if (sessionResult.success && sessionResult.data) {
           formRef.current?.loadSession({
-            workoutSessionId: workoutSessionIdRef.current ?? "",
+            workoutSessionId: dayData.workoutSessionId ?? "",
             workoutSessionName: sessionResult.data.workoutSessionName || "",
             note: sessionResult.data.notes || "",
             createDate: sessionResult.data.createDate || "",
@@ -82,14 +82,14 @@ export default function WorkoutSession({
           });
         }
       } catch (err) {
-        // Silently fail - form stays with default empty state
+        console.log(err);
       } finally {
         setLoading(false);
       }
     }
 
     loadExistingSession();
-  }, []);
+  }, [resolvedParams.date, resolvedParams.month, resolvedParams.year]);
 
   return (
     <div className="workout-session">
@@ -130,7 +130,7 @@ export default function WorkoutSession({
       <div className={`workout-session-list-wrapper ${showList ? "open" : ""}`}>
         <WorkoutSessionList
           formRef={formRef}
-          workoutSessionIdFromParam={workoutSessionIdRef.current}
+          workoutSessionIdFromParam={workoutSessionId}
         />
       </div>
     </div>

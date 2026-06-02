@@ -19,21 +19,6 @@ export default async function Month({
 }) {
   const user = await getSession();
 
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   const param = await params;
@@ -71,8 +56,8 @@ export default async function Month({
   ];
 
   // Navigation helpers
-  let year = Number(param.year);
-  let month = Number(param.month);
+  const year = Number(param.year);
+  const month = Number(param.month);
 
   const prevMonth =
     month === 1

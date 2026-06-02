@@ -44,8 +44,8 @@ export default function WorkoutSessionList({
         }
 
         setWorkoutSessions(result.data || []);
-      } catch (err) {
-        setErrorMessage("An unexpected error occurred");
+      } catch {
+        setErrorMessage("An unexpected error occurred in WorkoutSessionList");
       } finally {
         setLoading(false);
       }
