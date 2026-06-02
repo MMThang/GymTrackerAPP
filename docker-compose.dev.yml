@@ -1,0 +1,46 @@
+services:
+  postgres:
+    image: postgres:17
+
+    container_name: gym-tracker-postgres
+
+    env_file:
+      - .env.development
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+    networks:
+      - gym-tracker-backend-network
+
+  backend:
+    image: maiminhthang/gym-tracker-api-dev
+
+    container_name: gym-tracker-api-dev
+
+    env_file:
+      - .env.development
+
+    ports:
+      - "5078:8080"
+
+    volumes:
+      - ../GymTracker:/app
+      - /app/bin
+      - /app/obj
+
+    depends_on:
+      - postgres
+
+    networks:
+      - gym-tracker-backend-network
+
+volumes:
+  postgres-data:
+
+networks:
+  gym-tracker-backend-network:
+    driver: bridge

@@ -24,7 +24,7 @@ export default function Home() {
     };
 
     checkSession();
-  }, []); // ✅ Empty dependency array = run only once on mount
+  }, [router]); // ✅ Empty dependency array = run only once on mount
 
   // Optional: show loading while checking
   if (loading) {
