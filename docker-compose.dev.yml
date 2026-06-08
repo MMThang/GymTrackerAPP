@@ -7,6 +7,12 @@ services:
     env_file:
       - .env.development
 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
     ports:
       - "5432:5432"
 
@@ -16,10 +22,26 @@ services:
     networks:
       - gym-tracker-backend-network
 
-  backend:
+  migrate:
     image: maiminhthang/gym-tracker-api-dev
 
-    container_name: gym-tracker-api-dev
+    env_file:
+      - .env.development
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    networks:
+      - gym-tracker-backend-network
+
+    command: >
+      dotnet ef database update
+
+  backend:
+    image: maiminhthang/gym-tracker-api
+
+    container_name: gym-tracker-api
 
     env_file:
       - .env.development
@@ -27,13 +49,9 @@ services:
     ports:
       - "5078:8080"
 
-    volumes:
-      - ../GymTracker:/app
-      - /app/bin
-      - /app/obj
-
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
     networks:
       - gym-tracker-backend-network
