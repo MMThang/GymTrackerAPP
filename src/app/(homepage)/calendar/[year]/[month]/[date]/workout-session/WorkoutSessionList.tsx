@@ -5,6 +5,7 @@ import {
   getWorkoutSessionById,
 } from "@/app/actions/workout-session-action";
 import { Button } from "@/app/components/buttons/button";
+import { Icons } from "@/app/components/icons";
 import { WorkoutSessionFormHandle } from "./WorkoutSessionForm";
 import { useEffect, useState, useRef } from "react";
 
@@ -154,14 +155,7 @@ export default function WorkoutSessionList({
                 {session.note && (
                   <div className="card-note">
                     <div className="note-icon">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        width="14"
-                        height="14"
-                      >
-                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-                      </svg>
+                      <Icons.EditNote />
                     </div>
                     <span>{session.note}</span>
                   </div>
