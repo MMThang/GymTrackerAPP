@@ -1,8 +1,7 @@
-import FormComponent from "../../components/form/formComponent";
 import InputComponent from "../../components/form/inputComponent";
-import { register } from "../../actions/user-actions";
 import { Button } from "@/app/components/buttons/button";
 import { Icons } from "@/app/components/icons";
+import RegisterFormWrapper from "./RegisterFormWrapper";
 
 export default function Register() {
   return (
@@ -28,7 +27,7 @@ export default function Register() {
             </p>
           </div>
 
-          <FormComponent onSubmit={register} redirectTo="/login">
+          <RegisterFormWrapper>
             <div className="form-body">
               <div className="input-wrapper">
                 <div className="input-icon">
@@ -89,11 +88,11 @@ export default function Register() {
                 />
               </div>
             </div>
-          </FormComponent>
+          </RegisterFormWrapper>
         </div>
 
         <div className="auth-footer">
-          <p>© 2024 GymTracker. All rights reserved.</p>
+          <p>© 2026 GymTracker. All rights reserved.</p>
         </div>
       </div>
     </div>

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./main.scss";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import { getSession } from "./actions/user-actions";
 import { UserContextProvider } from "./context-provider";
 
@@ -19,6 +21,16 @@ export default function RootLayout({
       <body>
         <UserContextProvider userPromise={session}>
           {children}
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            pauseOnHover
+            draggable
+            theme="dark"
+          />
         </UserContextProvider>
       </body>
     </html>

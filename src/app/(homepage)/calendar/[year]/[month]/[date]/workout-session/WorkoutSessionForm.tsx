@@ -1,6 +1,7 @@
 "use client";
-import { use, forwardRef, useImperativeHandle } from "react";
+import { use, forwardRef, useImperativeHandle, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import Sets from "./Sets";
 import { Icons } from "@/app/components/icons";
 import { useUser } from "@/app/context-provider";
@@ -172,6 +173,45 @@ const WorkoutSessionForm = forwardRef<
     },
   }));
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const submit = async (data: FormValues) => {
+    setIsSubmitting(true);
+    try {
+      if (data.workoutSessionId) {
+        const result = await updateWorkoutSession({
+          workoutSessionId: data.workoutSessionId,
+          workoutSessionName: data.workoutSessionName,
+          note: data.note || "",
+          exercises: data.exercises,
+        });
+        if (result.success) {
+          toast.success("Workout session updated successfully!");
+        } else {
+          toast.error(result.message || "Failed to update workout session");
+        }
+      } else {
+        const result = await createWorkoutSession({
+          userId: data.userId,
+          workoutSessionName: data.workoutSessionName,
+          createDate: data.createDate || formatDateForSubmission(),
+          note: data.note || "",
+          exercises: data.exercises,
+        });
+        if (result.success) {
+          toast.success("Workout session created successfully!");
+        } else {
+          toast.error(result.message || "Failed to create workout session");
+        }
+      }
+    } catch (err) {
+      toast.error("An unexpected error occurred. Please try again.");
+      console.error(err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="workout-session-form-container">
       <div className={`workout-session-form`}>
@@ -206,27 +246,7 @@ const WorkoutSessionForm = forwardRef<
               <span>Loading workout session...</span>
             </div>
           ) : (
-            <form
-              onSubmit={handleSubmit(async (data) => {
-                if (data.workoutSessionId) {
-                  await updateWorkoutSession({
-                    workoutSessionId: data.workoutSessionId,
-                    workoutSessionName: data.workoutSessionName,
-                    note: data.note || "",
-                    exercises: data.exercises,
-                  });
-                } else {
-                  await createWorkoutSession({
-                    userId: data.userId,
-                    workoutSessionName: data.workoutSessionName,
-                    createDate: data.createDate || formatDateForSubmission(),
-                    note: data.note || "",
-                    exercises: data.exercises,
-                  });
-                }
-              })}
-              className="form"
-            >
+            <form onSubmit={handleSubmit(submit)} className="form">
               <input type="hidden" {...register("userId")} />
               <input type="hidden" {...register("workoutSessionId")} />
 
@@ -327,11 +347,26 @@ const WorkoutSessionForm = forwardRef<
               </div>
 
               <div className="form-actions">
-                <button type="submit" className="submit-btn">
-                  {watch("workoutSessionId") ? (
-                    <span>Update Workout Session</span>
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Icons.Spinner />
+                      <span>
+                        {watch("workoutSessionId")
+                          ? "Update Workout Session"
+                          : "Save Workout Session"}
+                      </span>
+                    </>
                   ) : (
-                    <span>Save Workout Session</span>
+                    <span>
+                      {watch("workoutSessionId")
+                        ? "Update Workout Session"
+                        : "Save Workout Session"}
+                    </span>
                   )}
                 </button>
               </div>
