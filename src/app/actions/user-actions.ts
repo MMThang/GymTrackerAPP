@@ -2,32 +2,27 @@
 
 import { cookies } from "next/headers";
 import axios from "axios";
-// import {
-//    clearAccessToken,
-//    setAccessToken,
-// } from "./lib/api-client";
-// const jwt = require("jsonwebtoken");
 import { jwtDecode } from "jwt-decode";
 
-// Server-side error logging utility
-function logServerError(error: any, context: string, data?: any) {
-  // Log to server console (visible in terminal/Next.js dev output)
-  console.error(`[Server Error] ${context}:`, {
-    message: error?.message || "Unknown error",
-    status: error?.response?.status || error?.status,
-    data: error?.response?.data,
-    config: error?.config,
-    timestamp: new Date().toISOString(),
-    requestData: data,
-  });
+// // Server-side error logging utility
+// function logServerError(error: any, context: string, data?: any) {
+//   // Log to server console (visible in terminal/Next.js dev output)
+//   console.error(`[Server Error] ${context}:`, {
+//     message: error?.message || "Unknown error",
+//     status: error?.response?.status || error?.status,
+//     data: error?.response?.data,
+//     config: error?.config,
+//     timestamp: new Date().toISOString(),
+//     requestData: data,
+//   });
 
-  // Return error info to be logged on client
-  return {
-    serverMessage: error?.response?.data?.message || error?.message,
-    serverStatus: error?.response?.status,
-    serverData: error?.response?.data,
-  };
-}
+//   // Return error info to be logged on client
+//   return {
+//     serverMessage: error?.response?.data?.message || error?.message,
+//     serverStatus: error?.response?.status,
+//     serverData: error?.response?.data,
+//   };
+// }
 
 //Không được xóa async
 export async function decrypt(token: string): Promise<any> {
@@ -48,29 +43,31 @@ export async function register(data: {
     });
     return {
       success: true,
-      status: "200",
+      status: 200,
       message: "Register successful",
       data: res.data,
     };
   } catch (error: any) {
     // Return error object instead of throwing for consistent handling
-    const status = error?.response?.status;
+    const status: number = error?.response?.status;
     let message = "Registration failed. Please try again.";
 
-    // Provide more specific error messages
-    if (status === 400) {
+    // Provide more specific error messages based on API error handling guide
+    if (status === 422) {
+      // The API returns plain text error messages for validation failures
+      // e.g., "Username minimum 6 characters", "Password minimum 6 characters", "Password don't match"
       message =
-        error?.response?.data?.message ||
-        "Invalid registration data. Please check your input.";
+        error?.response?.data ||
+        "Invalid input. Please check your information.";
     } else if (status === 409) {
-      message = "Username already exists. Please choose a different username.";
-    } else if (error?.response?.data?.message) {
-      message = error.response.data.message;
+      message = "Username already taken. Please choose a different username.";
+    } else if (status === 400) {
+      message = "Registration failed. Please try again.";
     }
 
     return {
       success: false,
-      status: status?.toString() || "500",
+      status: 500,
       message: message,
     };
   }
@@ -117,32 +114,28 @@ export async function login(data: { username: string; password: string }) {
       message: "Login successful",
     };
   } catch (error: any) {
-    // Log error to server console for debugging
-    const errorDetails = logServerError(error, "Login", {
-      username: data.username,
-    });
+    // // Log error to server console for debugging (server-side only)
+    // logServerError(error, "Login", {
+    //   username: data.username,
+    // });
 
     // Return error object instead of throwing for better handling
     const status = error?.response?.status;
     let message = "Login failed. Please try again.";
 
-    // Provide more specific error messages based on status code
-    if (status === 401 || status === 400) {
-      message = "The username or password was incorrect.";
-    } else if (status === 404) {
-      message = "User not found. Please check your username.";
-    } else if (status === 429) {
-      message = "Too many login attempts. Please try again later.";
-    } else if (error?.response?.data?.message) {
-      message = error.response.data.message;
+    // IMPORTANT: Do NOT distinguish between "username not found" and "incorrect password"
+    // Always show a generic message for security reasons (prevents username enumeration).
+    // The API returns 401 for both cases, and we never reveal which one occurred.
+    if (status === 401) {
+      message = "Invalid username or password";
+    } else if (status === 400) {
+      message = "Login failed. Please try again.";
     }
 
-    // Return detailed error info for client-side logging
     return {
       success: false,
-      status: status?.toString() || "500",
+      status: 500,
       message: message,
-      debugInfo: errorDetails, // Include debug info for client logging
     };
   }
 }

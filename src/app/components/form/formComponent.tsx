@@ -14,9 +14,8 @@ export default function FormComponent({
   onSubmit: (data?: any) => Promise<{
     success: boolean;
     data?: any;
-    status: string;
+    status: number;
     message: string;
-    debugInfo?: any; // Optional debug info for error logging
   }>;
   redirectTo?: string;
 }) {
@@ -31,54 +30,16 @@ export default function FormComponent({
 
     try {
       const result = await onSubmit(formData);
-
-      // Log the result for debugging (only in development)
-      if (process.env.NODE_ENV === "development") {
-        console.log("[Form Submit] Server response:", result);
-      }
-
       if (result?.success === true) {
         setErrorMessage(null);
         router.push(redirectTo ? redirectTo : "/login");
       } else {
-        // Handle case where success is false but no exception thrown
-        // Log detailed error info to browser console
+        // Log the result for debugging (only in development)
         if (process.env.NODE_ENV === "development") {
-          console.error("[Form Error] Server returned error:", {
-            message: result?.message,
-            status: result?.status,
-            debugInfo: result,
-          });
+          console.error("[Form Submit] Server response:", result);
         }
         setErrorMessage(result?.message || "An error occurred");
       }
-    } catch (error: any) {
-      // Log full error details to browser console for debugging
-      if (process.env.NODE_ENV === "development") {
-        console.error("[Form Error] Exception caught:", {
-          message: error?.message,
-          status: error?.response?.status,
-          data: error?.response?.data,
-          fullError: error,
-        });
-      }
-
-      // Extract error message from different error formats
-      let errorMsg = "An unexpected error occurred";
-
-      if (error?.response?.data?.message) {
-        errorMsg = error.response.data.message;
-      } else if (error?.message) {
-        // Try to parse if it's a JSON string
-        try {
-          const parsed = JSON.parse(error.message);
-          errorMsg = parsed.message || error.message;
-        } catch {
-          errorMsg = error.message;
-        }
-      }
-
-      setErrorMessage(errorMsg);
     } finally {
       setIsLoading(false);
     }
