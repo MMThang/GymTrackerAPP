@@ -29,11 +29,7 @@ export default async function Month({
     month: param.month,
     year: param.year,
   });
-
-  if (
-    !calendarResponse.success &&
-    /cannot\s+request\s+month/i.test(calendarResponse.debugInfo?.serverData)
-  ) {
+  if (!calendarResponse.success && calendarResponse.status == 422) {
     const today = new Date();
     redirect(`/calendar/${today.getFullYear()}/${today.getMonth() + 1}`);
   }
