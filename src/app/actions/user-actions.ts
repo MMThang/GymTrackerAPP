@@ -110,7 +110,7 @@ export async function login(data: { username: string; password: string }) {
 
     return {
       success: true,
-      status: "200",
+      status: 200,
       message: "Login successful",
     };
   } catch (error: any) {
