@@ -31,7 +31,7 @@ export async function createWorkoutSession(data: {
     );
     return {
       success: true,
-      status: "200",
+      status: 200,
       message: "Workout session created successfully",
       data: res.data,
     };
@@ -55,7 +55,7 @@ export async function createWorkoutSession(data: {
 
     return {
       success: false,
-      status: 500,
+      status: status || 500,
       message: message,
     };
   }
@@ -69,7 +69,7 @@ export async function getAllWorkoutSessionsById(data: { userId: string }) {
 
     return {
       success: true,
-      status: "200",
+      status: 200,
       message: "Workout sessions retrieved successfully",
       data: res.data,
     };
@@ -87,7 +87,7 @@ export async function getAllWorkoutSessionsById(data: { userId: string }) {
 
     return {
       success: false,
-      status: 500,
+      status: status || 500,
       message: message,
     };
   }
@@ -103,7 +103,7 @@ export async function getWorkoutSessionById(data: {
 
     return {
       success: true,
-      status: "200",
+      status: 200,
       message: "Workout session retrieved successfully",
       data: res.data,
     };
@@ -121,7 +121,7 @@ export async function getWorkoutSessionById(data: {
 
     return {
       success: false,
-      status: 500,
+      status: status || 500,
       message: message,
     };
   }
@@ -139,7 +139,7 @@ export async function getWorkoutCalendar(data: {
 
     return {
       success: true,
-      status: "200",
+      status: 200,
       message: "Workout calendar retrieved successfully",
       data: res.data,
     };
@@ -162,7 +162,7 @@ export async function getWorkoutCalendar(data: {
 
     return {
       success: false,
-      status: 500,
+      status: status || 500,
       message: message,
     };
   }
@@ -186,7 +186,7 @@ export async function updateWorkoutSession(data: {
     );
     return {
       success: true,
-      status: "200",
+      status: 200,
       message: "Workout session updated successfully",
       data: res.data,
     };
@@ -206,7 +206,7 @@ export async function updateWorkoutSession(data: {
 
     return {
       success: false,
-      status: 500,
+      status: status || 500,
       message: message,
     };
   }

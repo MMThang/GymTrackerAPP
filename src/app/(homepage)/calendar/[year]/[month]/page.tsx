@@ -29,7 +29,6 @@ export default async function Month({
     month: param.month,
     year: param.year,
   });
-
   if (!calendarResponse.success && calendarResponse.status == 422) {
     const today = new Date();
     redirect(`/calendar/${today.getFullYear()}/${today.getMonth() + 1}`);

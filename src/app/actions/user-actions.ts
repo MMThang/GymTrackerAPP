@@ -67,7 +67,7 @@ export async function register(data: {
 
     return {
       success: false,
-      status: 500,
+      status: status || 500,
       message: message,
     };
   }
@@ -134,7 +134,7 @@ export async function login(data: { username: string; password: string }) {
 
     return {
       success: false,
-      status: 500,
+      status: status || 500,
       message: message,
     };
   }
