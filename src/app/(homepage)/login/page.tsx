@@ -2,6 +2,7 @@ import FormComponent from "../../components/form/formComponent";
 import InputComponent from "../../components/form/inputComponent";
 import { login } from "../../actions/user-actions";
 import { Button } from "@/app/components/buttons/button";
+import { GoogleAuthButton } from "@/app/components/buttons/googleAuthButton";
 import { Icons } from "@/app/components/icons";
 
 export default function Login() {
@@ -59,6 +60,8 @@ export default function Login() {
               <div className="divider">
                 <span>or</span>
               </div>
+
+              <GoogleAuthButton />
 
               <div className="additional-btn">
                 <p>New to GymTracker?</p>

@@ -88,7 +88,6 @@ export async function login(data: { username: string; password: string }) {
         secure: false,
         sameSite: "lax",
       });
-      // setAccessToken(res.data.accessToken); // Set in-memory token for API client
       cookie.set("refreshToken", res.data.refreshToken, {
         httpOnly: true,
         secure: false,
@@ -138,6 +137,10 @@ export async function login(data: { username: string; password: string }) {
       message: message,
     };
   }
+}
+
+export async function loginWithGoogle() {
+  return `${process.env.API_URL}/Auth/google`;
 }
 
 export async function logout() {
