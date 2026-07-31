@@ -1,5 +1,6 @@
 import InputComponent from "../../components/form/inputComponent";
 import { Button } from "@/app/components/buttons/button";
+import { GoogleAuthButton } from "@/app/components/buttons/googleAuthButton";
 import { Icons } from "@/app/components/icons";
 import RegisterFormWrapper from "./RegisterFormWrapper";
 
@@ -76,6 +77,8 @@ export default function Register() {
               <div className="divider">
                 <span>or</span>
               </div>
+
+              <GoogleAuthButton />
 
               <div className="additional-btn">
                 <p>Already have an account?</p>
