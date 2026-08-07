@@ -23,7 +23,7 @@ services:
       - gym-tracker-backend-network
 
   migrate:
-    image: maiminhthang/gym-tracker-api-dev
+    image: maiminhthang/gym-tracker-api-migrate
 
     env_file:
       - .env.development
@@ -34,9 +34,6 @@ services:
 
     networks:
       - gym-tracker-backend-network
-
-    command: >
-      dotnet ef database update
 
   backend:
     image: maiminhthang/gym-tracker-api
