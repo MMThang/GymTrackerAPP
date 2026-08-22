@@ -1,17 +1,6 @@
 // Modern Workout Session Form Styles
 // Matches the design theme of other pages
-
-$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-$primary-color: #667eea;
-$primary-dark: #764ba2;
-$text-primary: #2d3748;
-$text-secondary: #718096;
-$text-light: #a0aec0;
-$white: #ffffff;
-$glass-bg: rgba(255, 255, 255, 0.95);
-$glass-border: rgba(255, 255, 255, 0.18);
-$error-color: #e53e3e;
-$success-color: #38a169;
+@use "../../../../../_variables.scss" as *;
 
 // Workout Session Form Container
 .workout-session-form-container {

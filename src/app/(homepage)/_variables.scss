@@ -1,0 +1,17 @@
+// Shared theme variables for the gym-tracker homepage.
+// Centralizes the color palette that was previously duplicated across pages.
+// Load with `@use "<relative-path>/_variables.scss" as *;` to expose members unprefixed
+// (plain `@use` would namespace them, e.g. variables.$primary-color).
+
+$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$primary-color: #667eea;
+$primary-dark: #764ba2;
+$accent-color: #f093fb;
+$text-primary: #2d3748;
+$text-secondary: #718096;
+$text-light: #a0aec0;
+$white: #ffffff;
+$error-color: #e53e3e;
+$success-color: #38a169;
+$glass-bg: rgba(255, 255, 255, 0.95);
+$glass-border: rgba(255, 255, 255, 0.18);

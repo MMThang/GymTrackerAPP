@@ -1,4 +1,8 @@
 // Workout Session List Styles
+// Shared theme tokens come from the homepage-level variables module.
+@use "../../../../../_variables.scss" as *;
+@use "sass:color";
+
 .workout-session-list {
   position: fixed;
   top: 92px;
@@ -128,7 +132,7 @@
       letter-spacing: 0.3px;
 
       &:hover {
-        background: darken($primary-color, 8%);
+        background: color.adjust($primary-color, $lightness: -8%);
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
       }

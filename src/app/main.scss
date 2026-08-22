@@ -1,6 +1,6 @@
 // Import global styles
-@import "./(homepage)/index.scss";
-@import "./components/styles.scss";
+@use "./(homepage)/index.scss";
+@use "./components/styles.scss";
 
 // Global reset and base styles
 * {

@@ -1,5 +1,5 @@
 // Import route-specific styles
-@import "./calendar/[year]/[month]/index.scss";
+@use "./calendar/[year]/[month]/index.scss";
 
 // Import modern auth pages styling (login, register)
-@import "./auth.scss";
+@use "./auth.scss";
