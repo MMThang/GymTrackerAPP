@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import { parseJwt } from "./app/utils/utils";
 
 // List of paths that should bypass authentication check
-const publicPaths = ["/login", "/register", "/api/refresh"];
+const publicPaths = ["/login", "/register", "/api/refresh", "/calendar"];
 
 export async function middleware(request: NextRequest) {
   if (publicPaths.some((path) => request.nextUrl.pathname.startsWith(path))) {
@@ -48,34 +48,17 @@ export async function middleware(request: NextRequest) {
         },
       });
 
-      //Nhớ sửa
-      if (process.env.NODE_ENV === "development") {
-        // Disable Secure flag and extend lifetime in dev mode
-        // Nhớ xóa cái này
-        response.cookies.set("session", data.accessToken, {
-          httpOnly: true,
-          secure: false,
-          sameSite: "lax",
-        });
-        // setAccessToken(data.accessToken); // Set in-memory token for API client
-        response.cookies.set("refreshToken", data.refreshToken, {
-          httpOnly: true,
-          secure: false,
-          sameSite: "lax",
-        });
-      } else {
-        response.cookies.set("session", data.accessToken, {
-          httpOnly: true,
-          secure: true,
-          sameSite: "lax",
-        });
-        // setAccessToken(data.accessToken); // Set in-memory token for API client
-        response.cookies.set("refreshToken", data.refreshToken, {
-          httpOnly: true,
-          secure: true,
-          sameSite: "strict",
-        });
-      }
+      response.cookies.set("session", data.accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "lax",
+      });
+      // setAccessToken(data.accessToken); // Set in-memory token for API client
+      response.cookies.set("refreshToken", data.refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "lax",
+      });
     }
   } catch {
     response.cookies.delete("session");

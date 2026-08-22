@@ -1,18 +1,7 @@
 // Modern Auth Pages Theme - GymTracker
-// Color Palette: Deep Blue/Purple gradient with vibrant accents
-
-$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-$primary-color: #667eea;
-$primary-dark: #764ba2;
-$accent-color: #f093fb;
-$text-primary: #2d3748;
-$text-secondary: #718096;
-$text-light: #a0aec0;
-$white: #ffffff;
-$error-color: #e53e3e;
-$success-color: #38a169;
-$glass-bg: rgba(255, 255, 255, 0.95);
-$glass-border: rgba(255, 255, 255, 0.18);
+// Shared theme tokens are centralized in ./_variables.scss
+// @use alone namespaces members; `as *` re-exports them unprefixed here.
+@use "./_variables.scss" as *;
 
 // Auth Page Base Styles
 .auth-page {
