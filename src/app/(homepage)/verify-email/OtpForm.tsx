@@ -23,21 +23,23 @@ export default function OtpForm({ email }: { email?: string }) {
   const [otp, setOtp] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
   const [isResending, setIsResending] = useState(false);
-  // Server-safe default so the server-rendered HTML and the client's first
-  // render always match (avoids hydration errors from reading localStorage).
+  // Resume the server-calculated cooldown persisted in localStorage so a page
+  // refresh continues the countdown instead of restarting it from the top.
+  // Falls back to a full cooldown only when nothing was stored for this email.
   const [cooldown, setCooldown] = useState(RESEND_COOLDOWN);
 
   const isCooldownRunning = cooldown > 0;
   const isResendDisabled = isResending || isCooldownRunning;
 
-  // Read the persisted cooldown only on the client (effects never run during
-  // SSR), so a page refresh continues the countdown from localStorage instead
-  // of qualifying as a hydration mismatch.
   useEffect(() => {
     if (!email) return;
 
-    const remaining = getOtpResendCooldownSeconds(email);
-    setCooldown(remaining === null ? RESEND_COOLDOWN : remaining);
+    const timer = setTimeout(() => {
+      const remaining = getOtpResendCooldownSeconds(email);
+      setCooldown(remaining === null ? RESEND_COOLDOWN : remaining);
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, [email]);
 
   // Resend cooldown countdown
