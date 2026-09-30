@@ -35,10 +35,10 @@ export default function Register() {
                   <Icons.User />
                 </div>
                 <InputComponent
-                  name="username"
-                  label="Username"
-                  placeholder="Choose a username"
-                  errorTxt="Username is required"
+                  name="email"
+                  label="Email"
+                  placeholder="Enter your email"
+                  errorTxt="Email is required"
                 />
               </div>
               <div className="input-wrapper">

@@ -3,7 +3,13 @@ import { NextRequest } from "next/server";
 import { parseJwt } from "./app/utils/utils";
 
 // List of paths that should bypass authentication check
-const publicPaths = ["/login", "/register", "/api/refresh", "/calendar"];
+const publicPaths = [
+  "/login",
+  "/register",
+  "/api/refresh",
+  "/calendar",
+  "/verify-email",
+];
 
 export async function middleware(request: NextRequest) {
   if (publicPaths.some((path) => request.nextUrl.pathname.startsWith(path))) {

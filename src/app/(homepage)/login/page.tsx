@@ -34,10 +34,10 @@ export default function Login() {
                   <Icons.User />
                 </div>
                 <InputComponent
-                  name="username"
-                  label="Username"
-                  placeholder="Enter your username"
-                  errorTxt="Username is required"
+                  name="email"
+                  label="Email"
+                  placeholder="Enter your Email"
+                  errorTxt="Email is required"
                 />
               </div>
               <div className="input-wrapper">

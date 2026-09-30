@@ -32,7 +32,9 @@ export default function FormComponent({
       const result = await onSubmit(formData);
       if (result?.success === true) {
         setErrorMessage(null);
-        router.push(redirectTo ? redirectTo : "/login");
+        if (redirectTo) {
+          router.push(redirectTo);
+        }
       } else {
         // Log the result for debugging (only in development)
         if (process.env.NODE_ENV === "development") {

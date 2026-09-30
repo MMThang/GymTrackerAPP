@@ -10,39 +10,37 @@ export async function decrypt(token: string): Promise<any> {
   return payload;
 }
 
-export async function register(data: {
-  username: string;
+export async function sendOtpEmail(data: {
+  email: string;
   password: string;
   confirmPassword: string;
 }) {
   try {
-    const res = await axios.post(`${process.env.API_URL}/User/register`, {
-      username: data.username,
-      password: data.password,
-      confirmPassword: data.confirmPassword,
-    });
+    const res = await axios.post(
+      `${process.env.API_URL}/User/sending-otp-email`,
+      {
+        email: data.email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+      },
+    );
     return {
       success: true,
       status: 200,
-      message: "Register successful",
+      message: "Verification code sent to your email",
       data: res.data,
     };
   } catch (error: any) {
-    // Return error object instead of throwing for consistent handling
     const status: number = error?.response?.status;
-    let message = "Registration failed. Please try again.";
+    let message = "Failed to send verification code. Please try again.";
 
-    // Provide more specific error messages based on API error handling guide
     if (status === 422) {
-      // The API returns plain text error messages for validation failures
-      // e.g., "Username minimum 6 characters", "Password minimum 6 characters", "Password don't match"
       message =
         error?.response?.data ||
         "Invalid input. Please check your information.";
     } else if (status === 409) {
-      message = "Username already taken. Please choose a different username.";
-    } else if (status === 400) {
-      message = "Registration failed. Please try again.";
+      message =
+        "Email is already registered. Please login or use a different email.";
     }
 
     return {
@@ -53,12 +51,73 @@ export async function register(data: {
   }
 }
 
-export async function login(data: { username: string; password: string }) {
+export async function verifyEmail(data: { email: string; otp: string }) {
+  try {
+    const res = await axios.post(`${process.env.API_URL}/User/verify-email`, {
+      email: data.email,
+      otp: data.otp,
+    });
+    return {
+      success: true,
+      status: 200,
+      message: "Email verified successfully",
+      data: res.data,
+    };
+  } catch (error: any) {
+    const status: number = error?.response?.status;
+    let message = "Email verification failed. Please try again.";
+
+    if (status === 404) {
+      message = "No account found with this email. Please register first.";
+    } else if (status === 409) {
+      message = "Email is already verified. Please login.";
+    }
+
+    return {
+      success: false,
+      status: status || 500,
+      message: message,
+    };
+  }
+}
+
+export async function resendVerificationCode(data: { email: string }) {
+  try {
+    const res = await axios.post(
+      `${process.env.API_URL}/User/resend-verification-code`,
+      {
+        email: data.email,
+      },
+    );
+    return {
+      success: true,
+      status: 200,
+      message: "Verification code resent",
+      data: res.data,
+    };
+  } catch (error: any) {
+    const status: number = error?.response?.status;
+    let message = `Failed to resend verification code. Please try again.`;
+
+    if (status === 409) {
+      message = "Email is already verified. Please login.";
+    }
+
+    return {
+      success: false,
+      status: status || 500,
+      message: message,
+    };
+  }
+}
+
+export async function login(data: { email: string; password: string }) {
   try {
     const res = await axios.post(`${process.env.API_URL}/User/login`, {
-      username: data.username,
+      email: data.email,
       password: data.password,
     });
+
     const cookie = await cookies();
 
     cookie.set("session", res.data.accessToken, {
@@ -81,11 +140,8 @@ export async function login(data: { username: string; password: string }) {
     const status = error?.response?.status;
     let message = "Login failed. Please try again.";
 
-    // IMPORTANT: Do NOT distinguish between "username not found" and "incorrect password"
-    // Always show a generic message for security reasons (prevents username enumeration).
-    // The API returns 401 for both cases, and we never reveal which one occurred.
     if (status === 401) {
-      message = "Invalid username or password";
+      message = "Invalid email or password";
     } else if (status === 400) {
       message = "Login failed. Please try again.";
     }
@@ -94,7 +150,6 @@ export async function login(data: { username: string; password: string }) {
       success: false,
       status: status || 500,
       message: message,
-      // error: error?.response,
     };
   }
 }
